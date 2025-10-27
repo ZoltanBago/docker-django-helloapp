@@ -1,11 +1,6 @@
-Docker Django Repository
+# Docker Django Repository
 Egy Django alkalmazás becsomagolása Dockerbe.
 
-Django app létrehozása
-
-Docker konténer létrehozása
-
-Feltöltés a GitHub-ra
 1. Django app létrehozása
 2. Docker konténer létrehozása
 3. Feltöltés a GitHub-ra
