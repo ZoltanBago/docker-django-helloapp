@@ -227,5 +227,11 @@ A folyamat végén ezt kell, hogy megjelenítse a terminál:
 Ezzel befejeződött az újraalapozás. Ismét meg kell adni a fentebb megadott git branch és a git push parancsokat.
 
 Ha frissitjük a GitHub oldalunkat, akkor láthatjuk, hogy fenn vannak a Django projektünk fájljai. 
+## Licenc
 
+Ez a projekt a [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) licenc alatt érhető el.  
+
+Szabadon másolható, tanulmányozható és módosítható **nem kereskedelmi célra**, a szerző (Bagó Zoltán) nevének feltüntetése mellett.
+
+Kereskedelmi felhasználás esetén külön engedély szükséges.
 
