@@ -5,6 +5,31 @@ Ez a dokumentáció egy egyszerű Django alkalmazás becsomagolását mutatja be
 2. Docker konténer létrehozása
 3. Feltöltés a GitHub-ra
 
+Hozzunk létre egy könyvtárat a terminál segítségével:
+
+    $ mkdir django_project
+
+Hozzuk létre a Python virtuális környezetet venv néven:
+
+    python3 -m venv venv
+
+Aktiváljuk a virtuális környezetet:
+
+    (venv) $ activate
+    $
+
+Telepítsük a Djangót a pip segítségével:
+
+pip install django
+
+Telepítsük a freeze csomagot:
+
+    pip install freeze
+
+Hozzuk létre a projektünk könyvtárát, amelyben a konfigurációs fájlok lesznek:
+
+    django-admin startproject docker_django
+
 ## 1. Django app létrehozása
 Hozzuk létre a Django alkalmazásunkat, amelynek a neve az lesz, hogy hello. Azért ez a neve, mert egy üres üdvözlőképernyőt fog mutatni a "Hello Docker Django!" felirattal.
 
@@ -127,31 +152,37 @@ Ehhez hozzunk létre egy üres fájlt, aminek az lesz a neve, hogy **Dockerfile*
 
 **Dockerfile**
 
-    # 1. Alap image megadása (Pl. Python 3.11 slim)
+    # 1. Az alap image
     FROM python:3.11-slim
-    # 2. Környezeti változók beállítása
+    
+    # 2. Környezeti változók 
     ENV PYTHONUNBUFFERED 1
     ENV DJANGO_PROJECT_NAME docker_django
     ENV PORT 8000
+    
     # 3. Munkakönyvtár létrehozása és beállítása a konténerben
     WORKDIR /usr/src/app
-    # 4. Függőségek másolása és telepítése
-    # Ez a lépés külön réteget képez, így ha csak a kód változik,
-    # a függőségek újratelepítése nem történik meg
+   
+    # 4. Függőségek másolása és telepítése    
     COPY requirements.txt .
     RUN pip install --no-cache-dir -r requirements.txt
+    
     # 5. A teljes projektkód másolása a munkakönyvtárba
     COPY . .
+    
     # 6. A port megnyitása
     EXPOSE 8000
-    # 7. Konténer indítási parancsa (Gunicorn használatával)
-    # A Gunicorn futtatja a Django projektet a wsgi.py fájlon keresztül.
-    # Az 'exampe.wsgi:application' helyére a fő projektmappád nevét írd.
+    
+    # 7. Konténer indítási parancsa, a Gunicorn futtatja a Django projektet a wsgi.py fájlon keresztül.
+    # Az 'exampe.wsgi:application' helyére a fő projektkönyvtárad nevét írd be.
+    # Ebben az esetben a docker_django a neve.
     CMD ["gunicorn", "--bind", "0.0.0.0:8000", "docker_django.wsgi:application"]
+
+Mentsük el a Dockerfile tartalmát és adjuk ki a következő paranbccot: 
 
     docker build -t django-app:latest .
 
-Futtasd a Docker konténert:
+Futtasuk a Docker konténert:
 
     docker run -d -p 80:8000 --name my-django-container django-app:latest
 
@@ -159,7 +190,7 @@ A **http://localhost:80** porton elérhető lesz az alkalmazás.
 
 De mi van, ha hibát ad a Docker?
 
-Merthogy ez szinte biztosan előfordul, miért is működne minden rendben. Ebben az esetben a következőt kell tenned:
+Merthogy ez szinte biztosan előfordul, miért is működne minden rendben. Ebben az esetben a következőt kell tenni:
 
 1. Le kell állítanod a konténer futását.
 2. Le kell törölnöd a meglévő nevet.
@@ -186,11 +217,11 @@ De nem árt egy ellenőrzés, hogy minden rendben van-e a konténerrel:
 
     docker logs my-django-container
 
-A docker_django könyvtárunkban létre kell hoznunk egy **.dockerignore** nevű fájlt. Ez nem kötelező, de erősen ajánlott. 
+A **docker_django** konfigurációs könyvtárunkban létre kell hoznunk egy **.dockerignore** nevű fájlt. Ez nem kötelező, de erősen ajánlott. 
 
 Hozzunk létre egy üres fájlt a következő tartalommal:
 
-    .venv
+    venv
     .git
     .gitignore
 
@@ -202,7 +233,7 @@ Ezután kell egy commit művelet.
 
     git commit -m "initial commit"
 
-A távoli elérés esetében több lehetőség közül lehet választani. A GitHub repo zöldszínű **<>code** gombján, a **Local** fülön, a Clone esetében a HTTPS, az SSH és a GitHub CLI közül lehet választani. Az általam használt példa repository-ban az SSH megoldást használtam.  
+A távoli elérés esetében több lehetőség közül lehet választani. Az általam használt példa repository-ben az SSH megoldást használtam.  
 
     git remote add origin git@github.com:ZoltanBago/docker-django-repository.git
 
@@ -215,7 +246,7 @@ Ebben az esetben kérni fogja az SSH jelszavad és utána feltölti a fájlokat 
 
 De mi történik, ha hibát ír ki a terminál? Előfordulhat, hogy **reject** hibát kapunk. Ez azért alakul ki, mert a helyi main és a távoli main águnk nincsen összhangban egymással. 
 
-Ezt az ellentmondást úgy oldhatjuk fel, ha úgymond újraalapozzuk a repónkat. Erre a --rebase a megoldás. 
+Ezt az ellentmondást úgy oldhatjuk fel, ha úgymond újraalapozzuk a repónkat. Erre a **--rebase** a megoldás. 
 
     git pull origin main --rebase
 
