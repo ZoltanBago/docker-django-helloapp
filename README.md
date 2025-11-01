@@ -22,13 +22,19 @@ Telepítsük a Djangót a pip segítségével:
 
 pip install django
 
-Telepítsük a freeze csomagot:
+Telepítsük a **freeze** csomagot:
 
     pip install freeze
 
-Hozzuk létre a projektünk könyvtárát, amelyben a konfigurációs fájlok lesznek:
+Hozzuk létre a projektünk **docker_django** nevű könyvtárát, amelyben a konfigurációs fájlok lesznek:
 
     django-admin startproject docker_django
+
+Ellenörizzük szervert:
+
+    python3 manage.py runserver
+
+A Django rakétás üdvözlő képernyőjének kell bejönnie. Ezután állítsuk le a szervert a Ctrl+C billentyű kombináció segítségével.
 
 ## 1. Django app létrehozása
 Hozzuk létre a Django alkalmazásunkat, amelynek a neve az lesz, hogy hello. Azért ez a neve, mert egy üres üdvözlőképernyőt fog mutatni a "Hello Docker Django!" felirattal.
