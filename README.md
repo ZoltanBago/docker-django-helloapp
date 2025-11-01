@@ -32,7 +32,7 @@ Nyissuk meg a fájlt és írjuk be az INSTALLED_APPS utolsó sorába a **'hello'
 
 Mentsük el a fájlt és ezzel elvégeztük a regisztrációt.
 
-Menjünk a hello könyvtárba és nyissuk meg a views.py fájlt. 
+Menjünk a **hello** könyvtárba és nyissuk meg a **views.py** fájlt. 
 
 **hello/views.py**
 
@@ -40,7 +40,7 @@ Menjünk a hello könyvtárba és nyissuk meg a views.py fájlt.
     
     # Create your views here.
 
-A views.py fájl nagyrészt üres, nekünk kell kitölteni tartalommal. Töröljük ki a komment mezőt és modosítsuk a kódot:
+A **views.py** fájl nagyrészt üres, nekünk kell kitölteni tartalommal. Töröljük ki a komment mezőt és modosítsuk a kódot:
 
     from django.http import HttpResponse
     from django.shortcuts import render
@@ -48,7 +48,7 @@ A views.py fájl nagyrészt üres, nekünk kell kitölteni tartalommal. Törölj
     def home_page_view(request):
         return HttpResponse("Hello Docker Django!")
 
-Mentsük el és hozzunk létre egy új fájlt a hello könyvtárban urls.py néven.
+Mentsük el és hozzunk létre egy új fájlt a **hello** könyvtárban **urls.py** néven.
 
 Nyissuk meg a fájlt és töltsük fel tartalommal:
 
@@ -59,7 +59,7 @@ Nyissuk meg a fájlt és töltsük fel tartalommal:
         path("", home_page_view),
     ]
 
-Ezután menjünk a docker_django könyvtárunkba és nyissuk meg az ugyanilyen névre hallgató urls.py fájlt és módosítsuk a tartalmát:
+Ezután menjünk a **docker_django** konfigurációs könyvtárunkba és nyissuk meg az ugyanilyen névre hallgató **urls.py** fájlt és módosítsuk a tartalmát:
 
 **docker_django/urls.py**
 
@@ -77,11 +77,11 @@ Futtassuk a szervert:
 
     python3 manage.py runserver
 
-A http://127.0.0.1:8000/ porton meg fog jelenni a Hello Docker Django! üdvözlő felírat. 
+A http://127.0.0.1:8000/ porton meg fog jelenni a *"Hello Docker Django!"* üdvözlő felírat. 
 
-Ezzel befejeztük a Django app-ra vonatkozó teendőinket. Ez egy egyszerű app, ami nagyon alapvető, nincsen benne semmi különösebb csavar. Nekünk most az a lényeg, hogy előkészítjük a GitHubra történő feltöltésre, becsomagoljuk egy Docker konténerbe és utána feltoljuk a cuccot.
+Ezzel befejeztük a Django app-ra vonatkozó teendőinket. Ez egy egyszerű app, ami nagyon alapvető, nincsen benne semmi különösebb csavar. Nekünk most az a lényeg, hogy előkészítjük a GitHubra történő feltöltésre, becsomagoljuk egy Docker konténerbe és utána feltoljuk a cuccot a GitHub-ra.
 
-A következő lépés, hogy a meglévő GitHub repónkba előkészítjük a feltöltést. Ehhez a docker_django könyvtárunkban maradunk és kiadjuk a szükséges git parancsot:
+A következő lépés, hogy a meglévő GitHub repónkba előkészítjük a feltöltést. Ehhez a **docker_django** konfigurációs könyvtárunkban maradunk és kiadjuk a szükséges git parancsot:
 
     git init
 
@@ -91,14 +91,14 @@ Ezután meg nézzük az állapotát a könyvtárunknak:
 
 Ha minden rendben van, akkor készítünk egy **.gitignore** nevű fájlt. Ez egy rejtett fájl lesz, ezért van előtte egy pont. 
 
-    .venv/
+    venv/
     __pycache__/
     db.sqlite3
     dockerignore
 
-Rakd bele ezeket a fájlokat, hogy a git figyelmen kívül hagyja és ne legyen ebből gond a későbbiekben a GitHub-on.
+Rakjuk bele ezeket a fájlokat, hogy a git figyelmen kívül hagyja és ne legyen ebből gond a későbbiekben a GitHub-on.
 
-A következő lépésünk, hogy a **pip** segítségével létrehozunk egy szöveges állományt:
+A következő lépésünk, hogy a **pip freeze** segítségével létrehozunk egy szöveges állományt:
 
     pip freeze > requirements.txt
 
@@ -119,7 +119,7 @@ Most még nem töltjük fel az anyagot a GitHubra, pedig fel lehetne így is, de
 
 Deaktiváljuk a virtuális környezetünket:
 
-    (.venv) $ deactivate
+    (venv) $ deactivate
     $
 
 Maradjunk a docker_django könyvtárban, már nem müködik a virtuális környezet és neki láthatunk a Docker fájl elkészítésének.
