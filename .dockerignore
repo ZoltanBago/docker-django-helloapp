@@ -1,0 +1,24 @@
+# Figyelmen kívül hagyandó Docker specifikus fájlok
+Dockerfile
+.dockerignore
+
+# Git és verziókövetés
+.git
+.gitignore
+
+# Python és Virtuális Környezet
+venv
+env
+__pycache__
+*.pyc
+
+# Titkos adatok és Logok
+.env
+local_settings.py
+*.log
+db.sqlite3
+
+# IDE és Rendszerfájlok
+.vscode
+.idea
+.DS_Store
