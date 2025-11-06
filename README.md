@@ -80,7 +80,7 @@ Lépjünk be a konfigurációs könyvtárba és regisztráljuk az appot a **sett
         path('', include('hello.urls')),
     ]
 
-## A követelmények fájl létrehozása:
+## A követelmények fájl létrehozása
 
 A követelmények (requirements) fájlt a **pip freeze** segítségével hozhatjuk létre:
 
